@@ -3,7 +3,9 @@
 #include <SPI.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BME280.h>
-#include <secret.h>
+#include <AdafruitIO_WiFi.h>
+
+#include "secret.h"
 
 #define BME_SCK 13
 #define BME_MISO 12
@@ -11,22 +13,12 @@
 #define BME_CS 10
 
 #define VBATPIN A13
-const float V_REF = 3.3;                        // Analog reference voltage (e.g., 5V or 3.3V)
-const float R_BITS = 16.0;                      // ADC resolution (bits)
-const float ADC_STEPS = (1 << int(R_BITS)) - 1; // Number of steps (2^R_BITS - 1)
-
 const float ADC_VOLT_CORRECTION = 0.0017558602388324;
-
 
 uint64_t sleepTime = 60 * 1000000; //seconds
 
-#include "AdafruitIO_WiFi.h"
+
 AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
-
-// time between sending data to adafruit io, in minutes
-#define MESSAGE_WAIT_SEC (15 * 60)
-
-#define SEALEVELPRESSURE_HPA (1013.25)
 
 Adafruit_BME280 bme; // I2C
 
